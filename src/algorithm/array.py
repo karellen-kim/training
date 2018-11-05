@@ -95,4 +95,56 @@ print("""
 ## 1.5 수정 횟수가 1회 이내인지 확인하는 함수
 ###################################
 """)
-def diff(str1, str2)
+def diff(str1, str2) :
+    # 전방 매치
+    pre = match(str1, str2)
+    last = max([len(str1), len(str2)]) - match(str1[::-1], str2[::-1])
+    return (last - pre) <= 1
+
+def match(str1, str2) :
+    pre = 0
+    for i in range(0, min([len(str1), len(str2)])) :
+        if str1[i] == str2[i] :
+            pre = pre + 1
+        else :
+            break
+    return pre
+
+print(diff("a", "abc"))
+print(diff("abc", "ac"))
+print(diff("abc", "aec"))
+print(diff("c", "abc"))
+
+print("""
+###################################
+## 1.6 문자열 압축
+###################################
+""")
+# python string concatenation : http://blog.leekchan.com/post/19062594439
+def compress(str1) :
+    compressed = []
+    prevChar = ''
+    repeatCount = 1
+
+    for ch in str1 :
+        if prevChar == ch :
+            repeatCount = repeatCount + 1
+        else :
+            compressed.append(charWithCount(prevChar, repeatCount))
+            prevChar = ch
+            repeatCount = 1
+    compressed.append(charWithCount(prevChar, repeatCount))
+    compressed = ''.join(compressed)
+
+    if len(compressed) > len(str1) :
+        return str1
+    else :
+        return compressed
+
+def charWithCount(prevChar, repeatCount) :
+    if prevChar == '' :
+        return ''
+    else :
+        return prevChar + str(repeatCount)
+
+print(compress("aabcccccaa")) # a2b1c5a2
