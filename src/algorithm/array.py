@@ -1,10 +1,11 @@
 import math
 
-print("""
-###################################
-##  1.2 같은 순열인지 확인하는 함수
-###################################
-""")
+def __Title__(title) :
+    print("###################################")
+    print("##  %s", title)
+    print("###################################")
+
+__Title__("1.2 같은 순열인지 확인하는 함수")
 def hasSameChars(a, b) :
     listA = dic_v2(a)
     listB = dic_v2(b)
@@ -28,11 +29,7 @@ def dic_v2(str) :
 print(hasSameChars("abba", "baaa"))
 print(hasSameChars("abba", "baacca"))
 
-print("""
-###################################
-## 1.3 모든 공백을 %20로 변경하는 함수
-###################################
-""")
+__Title__("1.3 모든 공백을 %20로 변경하는 함수")
 def replaceSpace(str) :
     list = []
     for ch in str :
@@ -44,11 +41,7 @@ def replaceSpace(str) :
 
 print(replaceSpace("Hello   World!"))
 
-print("""
-###################################
-## 1.4 회문의 순열인지 확인하는 함수
-###################################
-""")
+__Title__("1.4 회문의 순열인지 확인하는 함수")
 ## O(n^2)
 def isPalindrome(str) :
     map = {}
@@ -90,11 +83,7 @@ def getCharIndex(ch) :
 print(isPalindrome_v3("aaaaoo"))
 print(isPalindrome_v3("aaacccoo"))
 
-print("""
-###################################
-## 1.5 수정 횟수가 1회 이내인지 확인하는 함수
-###################################
-""")
+__Title__("1.5 수정 횟수가 1회 이내인지 확인하는 함수")
 def diff(str1, str2) :
     # 전방 매치
     pre = match(str1, str2)
@@ -115,11 +104,7 @@ print(diff("abc", "ac"))
 print(diff("abc", "aec"))
 print(diff("c", "abc"))
 
-print("""
-###################################
-## 1.6 문자열 압축
-###################################
-""")
+__Title__("1.6 문자열 압축")
 # python string concatenation : http://blog.leekchan.com/post/19062594439
 def compress(str1) :
     compressed = []
@@ -148,3 +133,28 @@ def charWithCount(prevChar, repeatCount) :
         return prevChar + str(repeatCount)
 
 print(compress("aabcccccaa")) # a2b1c5a2
+
+__Title__("1.7 행렬 rotate")
+
+def rotate_v1(matrix) :
+    len_row = len(matrix)
+    len_col = len(matrix[0])
+
+    rotate_matrix = [[0 for col in range(len_row)] for row in range(len_col)]
+    for row in range(len_row) :
+        for col in range(len_col) :
+            item = matrix[row][col]
+            r = len(matrix) - 1 - col
+            c = row
+            rotate_matrix[r][c] = item
+    return rotate_matrix
+
+def printMatrix(matrix) :
+    for i in range(len(matrix)) :
+        for j in range(len(matrix[i])) :
+            print(matrix[i][j], end = ' ')
+        print('')
+
+matrix = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
+printMatrix(matrix)
+printMatrix(rotate_v1(matrix))
