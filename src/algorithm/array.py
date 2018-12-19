@@ -158,3 +158,24 @@ def printMatrix(matrix) :
 matrix = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
 printMatrix(matrix)
 printMatrix(rotate_v1(matrix))
+
+
+__Title__("1.9 문자열 회전")
+def isSubString(str1, str2) :
+    str1.find(str2) != -1
+
+def isRotateString_v1(str1, str2) :
+    if len(str1) != len(str2) :
+        return False
+
+    for idx in range(0, len(str1)) :
+        postFix = str1[idx:]
+        preFix = str1[:idx]
+        if postFix + preFix == str2 :
+            return True
+    return False
+
+print(isRotateString_v1("waterbottle", "erbottlewat__"))
+print(isRotateString_v1("waterbottle", "arbottlewat"))
+print(isRotateString_v1("waterbottle", "erbottlewat"))
+print(isRotateString_v1("abcdefabc", "defabcabc"))
