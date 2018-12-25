@@ -1,8 +1,9 @@
 import math
 
 def __Title__(title) :
+    print("\n")
     print("###################################")
-    print("##  %s", title)
+    print("## ", title)
     print("###################################")
 
 __Title__("1.2 같은 순열인지 확인하는 함수")
@@ -155,10 +156,58 @@ def printMatrix(matrix) :
             print(matrix[i][j], end = ' ')
         print('')
 
-matrix = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
+matrix = [[1,2,3,4],
+          [5,6,7,8],
+          [9,10,11,12],
+          [13,14,15,16]]
 printMatrix(matrix)
 printMatrix(rotate_v1(matrix))
 
+__Title__("1.8 원소가 0인 경우 해당 행과 열을 모두 0으로 변경")
+def replace_v1(matrix, num) :
+    replacedMatrix = copy(matrix)
+
+    for row in range(0, len(matrix)) :
+        for col in range(0, len(matrix[0])) :
+            if matrix[row][col] == num :
+                replaceRow(replacedMatrix, num, row)
+                replaceCol(replacedMatrix, num, col)
+    return replacedMatrix
+
+def copy(matrix) :
+    return [row[:] for row in matrix]
+
+def replaceRow(matrix, num, row) :
+    for i in range(0, len(matrix[0])) :
+        matrix[row][i] = num
+    return matrix
+
+def replaceCol(matrix, num, col) :
+    for i in range(0, len(matrix)) :
+        matrix[i][col] = num
+    return matrix
+
+def replace_v2(matrix, num) :
+    rows = []
+    cols = []
+    for row in range(0, len(matrix)) :
+        for col in range(0, len(matrix[0])) :
+            if matrix[row][col] == num :
+                rows.append(row)
+                cols.append(col)
+    for r in rows :
+        replaceRow(matrix, num, r)
+    for c in cols :
+        replaceCol(matrix, num, c)
+    return matrix
+
+matrix = [[1,2,3,4],
+          [5,0,7,8],
+          [9,10,11,12],
+          [13,14,15,16]]
+printMatrix(matrix)
+printMatrix(replace_v1(matrix, 0)) # N^2 + 2N^3 => N^3
+printMatrix(replace_v2(matrix, 0)) # N^2
 
 __Title__("1.9 문자열 회전")
 def isSubString(str1, str2) :
