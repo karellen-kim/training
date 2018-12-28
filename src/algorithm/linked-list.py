@@ -9,7 +9,10 @@ def __Title__(title) :
 def __print__(var) :
     callers_local_vars = inspect.currentframe().f_back.f_locals.items()
     name = [var_name for var_name, var_val in callers_local_vars if var_val is var]
-    print("%s = %s" % (name[0], str(var)))
+    if len(name) == 0 :
+        print(var)
+    else :
+        print("%s = %s" % (name[0], str(var)))
 
 
 __Title__("2.1 연결리스트 중복없애기")
@@ -69,4 +72,72 @@ __print__(list)
 linkedList = LinkedList(list)
 __print__(removeDuplicate(linkedList)) # O(N)
 
-__Title__("2.2 단방향 리스트에서 뒤에서 N번째 원소")
+
+__Title__("2.2 단방향 연결리스트에서 뒤에서 N번째 원소")
+def getReverseAt(list, n) :
+    pre = list.top
+    cur = list.top
+
+    # prefetch iterator
+    count = 0
+    while pre != None :
+        pre = pre.next
+        if count == n :
+            break
+        count = count + 1
+
+    # next iterator
+    while pre != None :
+        cur = cur.next
+        pre = pre.next
+
+    if cur != None :
+        return cur.item
+    else :
+        return None
+
+list = [1,2,3,1,5,6,7,2,1]
+__print__(list)
+linkedList = LinkedList(list)
+__print__(getReverseAt(linkedList, 2)) # O(N)
+
+__Title__("2.3 단방향 연결리스트에서 주어진 노드 삭제 (head 알수 없음)")
+def getAt(list, n) :
+    cur = list.top
+    idx = 1
+    while cur != None :
+        if idx == n :
+            return cur
+        cur = cur.next
+        idx = idx + 1
+    return None
+
+def removeNode(node) :
+    next = node.next
+
+    if next != None :
+        # 다음 노드의 값을 복사한다.
+        node.item = next.item
+        # node.next를 다음 노드의 next를 가리킨다
+        node.next = next.next
+
+list = [1,2,3,1,5,6,7,2,1]
+__print__(list)
+linkedList = LinkedList(list)
+target = getAt(linkedList, 3)
+__print__(target.item)
+removeNode(target)
+__print__(linkedList) # O(N)
+
+__Title__("2.5 리스트가 하나의 숫자를 가리킨다고 가정할 때, 두 리스트의 합을 반환하는 리스트")
+# 7->1->6, 5->9->2 617 + 295 => 912 => 2->1->9
+
+__Title__("2.6 주어진 연결 리스트가 회문인지 확인하는 함수")
+# 0->1->2->1->0 => 회문
+
+__Title__("2.7 값도 위치도 동일한 두 리스트의 교집합 : 마지막 노드가 같아야 함")
+# 1->2->3, 2->3 교집합 (2->3)
+# 1->2->3, 2->3->1 교집합 없음
+
+__Title__("2.8 순환 연결리스트가 있을 때, 순환되는 첫째 노드는 반환하는 함수")
+# A->B->C->D->E->C(앞의 C와 동일한 객체) => C
