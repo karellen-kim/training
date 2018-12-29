@@ -131,6 +131,54 @@ __print__(linkedList) # O(N)
 
 __Title__("2.5 리스트가 하나의 숫자를 가리킨다고 가정할 때, 두 리스트의 합을 반환하는 리스트")
 # 7->1->6, 5->9->2 617 + 295 => 912 => 2->1->9
+def sumLists_v1(list1, list2) :
+    sum = getNumber(list1) + getNumber(list2)
+    return LinkedList(toList(sum))
+
+def getNumber(list) : # O(3N)
+    nums = []
+    cur = list.top
+    while cur != None :
+        nums.append(str(cur.item))
+        cur = cur.next
+    nums.reverse()
+    return int("".join(nums))
+
+def toList(num) :
+    list = [c for c in str(num)]
+    list.reverse()
+    return list
+
+list1 = LinkedList([7,1,6])
+list2 = LinkedList([5,9,2])
+sumList = sumLists_v1(list1, list2) # O(8N)
+__print__(sumList)
+
+def sumLists_v2(list1, list2) :
+    n1 = list1.top
+    n2 = list2.top
+
+    list = LinkedList()
+    passNum = 0
+    while n1 != None or n2 != None :
+        sum = getNum(n1) + getNum(n2)
+        num = (sum % 10)
+        list.append(Node(num + passNum))
+        passNum = int(sum / 10)
+        n1 = n1.next
+        n2 = n2.next
+    return list
+
+def getNum(node) :
+    if node != None and node.item != None :
+        return node.item
+    else :
+        return 0
+
+list1 = LinkedList([7,1,6])
+list2 = LinkedList([5,9,2])
+sumList2 = sumLists_v2(list1, list2)
+__print__(sumList2)
 
 __Title__("2.6 주어진 연결 리스트가 회문인지 확인하는 함수")
 # 0->1->2->1->0 => 회문
