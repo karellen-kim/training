@@ -241,6 +241,86 @@ utils.__print__(isPalindrome_v3(list3))
 utils.__Title__("2.7 값도 위치도 동일한 두 리스트의 교집합 : 마지막 노드가 같아야 함")
 # 1->2->3, 2->3 교집합 (2->3)
 # 1->2->3, 2->3->1 교집합 없음
+def iterator(list, func) :
+    cur = list.top
+    while cur != None :
+        func(cur)
+        cur = cur.next
+
+def getItems(list) :
+    items = []
+    iterator(list, lambda i: items.append(i.item))
+    return items
+
+def findSameNode_v1(list1, list2) :
+    items1 = getItems(list1)
+    items2 = getItems(list2)
+
+    idx1 = len(items1) - 1
+    idx2 = len(items2) - 1
+    while idx1 >= 0 and idx2 >= 0:
+        if items1[idx1] != items2[idx2] :
+            break
+        idx1 = idx1 - 1
+        idx2 = idx2 - 1
+    return LinkedList(items1[idx1 + 1:])
+
+def getListInfo(list) :
+    last = None
+    size = 0
+
+    cur = list.top
+    while cur != None :
+        last = cur
+        size = size + 1
+        cur = cur.next
+
+    return {
+        "last" : last,
+        "size" : size
+    }
+
+def findSameNode_v2(list1, list2) :
+    first = getListInfo(list1)
+    second = getListInfo(list2)
+
+    if first["last"].item != second["last"].item :
+        return LinkedList()
+    else :
+        f_cur = list1.top
+        s_cur = list2.top
+        # skip
+        for i in range(0, first["size"] - second["size"]) :
+            f_cur = f_cur.next
+
+        for i in range(0, second["size"] - first["size"]) :
+            s_cur = s_cur.next
+
+        matched = None
+        while f_cur != None and s_cur != None:
+            if f_cur.item != s_cur.item :
+                matched = None
+            elif matched == None :
+                matched = f_cur
+            f_cur = f_cur.next
+            s_cur = s_cur.next
+
+        list1.top = matched
+        return list1
+
+list1 = LinkedList([1,2,3,4])
+list2 = LinkedList([0,10,2,3,4])
+utils.__print__(list1)
+utils.__print__(list2)
+print("findSameNode_v1", findSameNode_v1(list1, list2))
+print("findSameNode_v2", findSameNode_v2(list1, list2))
+
+list1 = LinkedList([1,2,3])
+list2 = LinkedList([0,10,2,3,4])
+utils.__print__(list1)
+utils.__print__(list2)
+print("findSameNode_v1", findSameNode_v1(list1, list2))
+print("findSameNode_v2", findSameNode_v2(list1, list2))
 
 utils.__Title__("2.8 순환 연결리스트가 있을 때, 순환되는 첫째 노드는 반환하는 함수")
 # A->B->C->D->E->C(앞의 C와 동일한 객체) => C
