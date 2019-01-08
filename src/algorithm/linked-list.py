@@ -322,5 +322,5 @@ utils.__print__(list2)
 print("findSameNode_v1", findSameNode_v1(list1, list2))
 print("findSameNode_v2", findSameNode_v2(list1, list2))
 
-utils.__Title__("2.8 순환 연결리스트가 있을 때, 순환되는 첫째 노드는 반환하는 함수")
+utils.__Title__("2.8 순환 연결리스트가 있을 때, 순환되는 첫째 노드를 반환하는 함수")
 # A->B->C->D->E->C(앞의 C와 동일한 객체) => C
