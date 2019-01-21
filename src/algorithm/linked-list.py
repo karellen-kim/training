@@ -1,4 +1,6 @@
 import math
+import os,sys
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import utils
 
 utils.__Title__("2.1 연결리스트 중복없애기")

@@ -33,18 +33,19 @@ class Tree :
             if right.item != -1 :
                 q.append(right)
 
-    def getNodesByDepth(self, depth) :
-        list = []
-        self.__getNodesByDepth(self.root, 1, depth, list)
-        return list
+    def replaceNodesByDepth(self, depth):
+        self.__replaceNodesByDepth(self.root, 1, depth)
 
-    def __getNodesByDepth(self, n, curDepth, targetDepth, list) :
-        if n.l != None :
-            self.__getNodesByDepth(n.l, curDepth + 1, targetDepth, list)
+    def __replaceNodesByDepth(self, n, curDepth, targetDepth):
         if n.item != None and curDepth % targetDepth == 0 :
-            list.append(n)
+            tmp = n.r
+            n.r = n.l
+            n.l = tmp
+            print(self.toList())
+        if n.l != None :
+            self.__replaceNodesByDepth(n.l, curDepth + 1, targetDepth)
         if n.r != None :
-            self.__getNodesByDepth(n.r, curDepth + 1, targetDepth, list)
+            self.__replaceNodesByDepth(n.r, curDepth + 1, targetDepth)
 
     def toList(self) :
         list = []
@@ -65,15 +66,11 @@ def swapNodes(indexes, queries):
 
     result = []
     for depth in queries :
-        nodes = tree.getNodesByDepth(depth)
-        for node in nodes :
-            tmp = node.r
-            node.r = node.l
-            node.l = tmp
+        tree.replaceNodesByDepth(depth)
         result.append(tree.toList())
     return result
 
-print(swapNodes([[-1,-1]], [1,1]))
+#print(swapNodes([[-1,-1]], [1,1]))
 #print(swapNodes([[2,3], [-1,-1], [-1,-1]], [1,1]))
 #print(swapNodes([[2, 3], [-1, 4], [-1, 5], [-1, -1], [-1, -1]], [2, 1]))
 print(swapNodes([[2, 3], [4, -1], [5, -1], [6, -1], [7, 8], [-1, 9], [-1, -1], [10, 11], [-1, -1], [-1, -1], [-1, -1]], [2,4]))

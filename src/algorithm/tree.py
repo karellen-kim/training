@@ -1,4 +1,6 @@
 import math
+import os,sys
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
 import utils
 
 utils.__Title__("4.1 방향 그래프가 주어졌을때 두 노드 사이에 경로가 존재하는지 확인")
