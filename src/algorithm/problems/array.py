@@ -1,10 +1,8 @@
 import math
-
-def __Title__(title) :
-    print("\n")
-    print("###################################")
-    print("## ", title)
-    print("###################################")
+import os,sys
+sys.path.insert(1, os.path.join(sys.path[0], '../..'))
+import utils
+from utils import __Title__, __print__
 
 __Title__("1.2 같은 순열인지 확인하는 함수")
 def hasSameChars(a, b) :

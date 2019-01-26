@@ -1,9 +1,37 @@
 import math
 import os,sys
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
+sys.path.insert(1, os.path.join(sys.path[0], '../..'))
 import utils
+from utils import __Title__, __print__
+from collections import deque
 
 utils.__Title__("4.1 방향 그래프가 주어졌을때 두 노드 사이에 경로가 존재하는지 확인")
+class Node :
+    def __init__(self, value, children = []):
+        self.value = value
+        self.children = children
+        self.visited = False
+
+def hasTrace(start, end) :
+    d = deque()
+    d.append(start)
+
+    while d :
+        current = d.pop()
+        if current.value == end.value :
+            return True
+        for c in current.children :
+            if c.visited == False :
+                d.append(c)
+                c.visited = True
+    return False
+
+def node(value, children = []) :
+    return Node(value, children)
+
+root = node(1, [node(2), node(3, [node(6), node(7), node(8)]), node(4, [node(9), node(10)]), node(5)])
+__print__(hasTrace(root, root.children[1].children[1]))
+__print__(hasTrace(root.children[1], root.children[1].children[1]))
 
 utils.__Title__("4.2 최소 트리 : 오름차순 정렬된 중복없는 배열. 이 배열 값으로 만드는 높이가 최소인 트리")
 
