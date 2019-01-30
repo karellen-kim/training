@@ -10,7 +10,7 @@ def binarySearch(list, item) :
 
     while end > start :
         mid = (start + end) // 2
-        if item > mid :
+        if item > list[mid] :
             start = mid + 1
         else :
             end = mid
@@ -22,9 +22,9 @@ def __binarySearch(list, item) :
 
     while end > start :
         mid = math.ceil((start + end) / 2)
-        if item < mid :
+        if item < list[mid] : # 작은 경우
             end = mid - 1
-        else :
+        else : # 크거나 같은 경우
             start = mid
     return start
 
